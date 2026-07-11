@@ -1,0 +1,71 @@
+{
+  "config": {
+    "base_model": "c:\\Users\\adria\\OneDrive\\Desktop\\mini-llm-jepa\\notebooks\\model\\Qwen2.5-0.5B-Instruct",
+    "trained_model_dir": "c:\\Users\\adria\\OneDrive\\Desktop\\mini-llm-jepa\\notebooks\\01-outputs\\model",
+    "pooling": "last_token",
+    "layer_indices": [
+      -1
+    ],
+    "normalize_embeddings": true,
+    "view_prompt": "chat_prompt",
+    "view_target": "chat_target",
+    "n_pairs": 200,
+    "shuffle_seed": 42
+  },
+  "stats": {
+    "base_prompt": {
+      "shape": [
+        200,
+        896
+      ],
+      "mean_norm": 251.55638122558594,
+      "std_of_norms": 1.3367798328399658,
+      "mean_per_dim_std": 0.7724795937538147
+    },
+    "base_target": {
+      "shape": [
+        200,
+        896
+      ],
+      "mean_norm": 219.51441955566406,
+      "std_of_norms": 0.20501993596553802,
+      "mean_per_dim_std": 0.2832985520362854
+    },
+    "trained_prompt": {
+      "shape": [
+        200,
+        896
+      ],
+      "mean_norm": 224.69842529296875,
+      "std_of_norms": 1.905751347541809,
+      "mean_per_dim_std": 1.073202133178711
+    },
+    "trained_target": {
+      "shape": [
+        200,
+        896
+      ],
+      "mean_norm": 220.02635192871094,
+      "std_of_norms": 0.21578183770179749,
+      "mean_per_dim_std": 0.2767408788204193
+    }
+  },
+  "cosines": [
+    {
+      "name": "base",
+      "aligned_mean": 0.0779523104429245,
+      "aligned_std": 0.006620042957365513,
+      "shuffled_mean": 0.07792045921087265,
+      "shuffled_std": 0.00598437525331974,
+      "gap": 3.1851232051849365e-05
+    },
+    {
+      "name": "trained",
+      "aligned_mean": 0.13981248438358307,
+      "aligned_std": 0.01322320569306612,
+      "shuffled_mean": 0.13984428346157074,
+      "shuffled_std": 0.014004278928041458,
+      "gap": -3.17990779876709e-05
+    }
+  ]
+}
