@@ -1,0 +1,27 @@
+{
+  "jepa_mode": "aligned",
+  "lambda_jepa": 0.1,
+  "prompt_stats": {
+    "shape": [
+      200,
+      896
+    ],
+    "mean_norm": 241.12954711914062,
+    "std_of_norms": 0.7360415458679199,
+    "mean_per_dim_std": 0.7678143382072449
+  },
+  "target_stats": {
+    "shape": [
+      200,
+      896
+    ],
+    "mean_norm": 220.25048828125,
+    "std_of_norms": 0.19613111019134521,
+    "mean_per_dim_std": 0.26063013076782227
+  },
+  "aligned_mean": 0.03721041604876518,
+  "aligned_std": 0.004847261123359203,
+  "shuffled_mean": 0.03721308708190918,
+  "shuffled_std": 0.004977513570338488,
+  "gap": -2.6710331439971924e-06
+}

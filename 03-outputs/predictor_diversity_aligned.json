@@ -1,0 +1,10 @@
+{
+  "audit_mode": "aligned",
+  "z_pred_mean_norm": 58.018699645996094,
+  "z_pred_std_of_norms": 0.2738901972770691,
+  "z_pred_per_dim_std": 0.19019797444343567,
+  "z_pred_mean_pairwise_cos": 0.9896248579025269,
+  "z_target_per_dim_std": 0.26063013076782227,
+  "z_target_mean_norm": 220.25048828125,
+  "verdict": "NO COLLAPSE. Predictor output is diverse. The zero pred_gap is a different problem."
+}

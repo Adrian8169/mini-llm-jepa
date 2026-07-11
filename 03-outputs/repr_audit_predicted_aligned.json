@@ -1,0 +1,9 @@
+{
+  "audit_mode": "aligned",
+  "raw_aligned_mean": 0.03721041604876518,
+  "raw_shuffled_mean": 0.03721308708190918,
+  "raw_gap": -2.6710331439971924e-06,
+  "pred_aligned_mean": 0.05105181783437729,
+  "pred_shuffled_mean": 0.05105549842119217,
+  "pred_gap": -3.680586814880371e-06
+}
