@@ -1,9 +1,9 @@
 {
   "audit_mode": "aligned",
-  "raw_aligned_mean": 0.02180112898349762,
-  "raw_shuffled_mean": 0.021772708743810654,
-  "raw_gap": 2.8420239686965942e-05,
-  "pred_aligned_mean": 0.7864820957183838,
-  "pred_shuffled_mean": 0.786479115486145,
-  "pred_gap": 2.9802322387695312e-06
+  "raw_aligned_mean": 0.04747500270605087,
+  "raw_shuffled_mean": 0.04669015482068062,
+  "raw_gap": 0.0007848478853702545,
+  "pred_aligned_mean": 0.8411198258399963,
+  "pred_shuffled_mean": 0.8409399390220642,
+  "pred_gap": 0.0001798868179321289
 }

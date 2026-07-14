@@ -1,10 +1,11 @@
 {
   "audit_mode": "aligned",
-  "z_pred_mean_norm": 154.66024780273438,
-  "z_pred_std_of_norms": 1.6292197704315186,
-  "z_pred_per_dim_std": 0.24123969674110413,
-  "z_pred_mean_pairwise_cos": 0.9977408647537231,
-  "z_target_per_dim_std": 0.27387499809265137,
-  "z_target_mean_norm": 220.33316040039062,
-  "verdict": "NO COLLAPSE. Predictor output is diverse. The zero pred_gap is a different problem."
+  "z_pred_mean_norm": 121.42321014404297,
+  "z_pred_std_of_norms": 1.4725496768951416,
+  "z_pred_per_dim_std": 0.3564797043800354,
+  "z_pred_mean_pairwise_cos": 0.9923681020736694,
+  "z_pred_mean_angle_deg": 7.083216262222037,
+  "z_target_per_dim_std": 0.9478000998497009,
+  "z_target_mean_norm": 219.6454620361328,
+  "verdict": "DIRECTIONAL COLLAPSE. Raw per-dim variance is nonzero (per_dim_std 0.356), but normalized predictions occupy a narrow cone (mean angle 7.1 deg). Cosine loss cannot see the difference -- for JEPA purposes this is collapsed."
 }
