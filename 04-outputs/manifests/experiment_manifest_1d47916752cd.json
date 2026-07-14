@@ -1,0 +1,132 @@
+{
+  "notebook": "04-identify-then-intervene.ipynb",
+  "beats": "0-3 (contract through selection gate)",
+  "created_at": "2026-07-14 08:07:51",
+  "hypothesis": "A compact component of the prompt representation contains enough information to predict the pair-specific component of the SQL representation, and encouraging this mapping can improve task performance without materially degrading autoregressive learning.",
+  "sub_questions": [
+    "Q1: Var(z_T) > 0?",
+    "Q2: z_T contains pair-specific rather than only family information?",
+    "Q3: z_T is predictable from z_P out of sample?",
+    "Q4: forcing that prediction improves generation without crowding out CE? [deferred to next notebook]"
+  ],
+  "candidate_representations": [
+    {
+      "layer": -1,
+      "pooling": "terminal"
+    },
+    {
+      "layer": -1,
+      "pooling": "last_content"
+    },
+    {
+      "layer": -1,
+      "pooling": "content_mean"
+    },
+    {
+      "layer": -1,
+      "pooling": "content_tail4"
+    },
+    {
+      "layer": -4,
+      "pooling": "terminal"
+    },
+    {
+      "layer": -4,
+      "pooling": "last_content"
+    },
+    {
+      "layer": -4,
+      "pooling": "content_mean"
+    },
+    {
+      "layer": -4,
+      "pooling": "content_tail4"
+    },
+    {
+      "layer": -8,
+      "pooling": "terminal"
+    },
+    {
+      "layer": -8,
+      "pooling": "last_content"
+    },
+    {
+      "layer": -8,
+      "pooling": "content_mean"
+    },
+    {
+      "layer": -8,
+      "pooling": "content_tail4"
+    }
+  ],
+  "selection_rule": "Raw pass: ridge-predicted target vectors must (1) beat the derangement-null aligned-R\u00b2 at pctile \u2265 95, (2) exceed predicted retrieval MRR = 0.02, (3) exceed constant-predictor cos advantage = 0.05, (4) exceed effective-rank ratio = 1.5. FWL pass: residualized R\u00b2 must beat its own derangement null at the same percentile. Among passers, apply the 1-SE rule and pick the cheapest representation.",
+  "primary_outcomes_beats_0_3": [
+    "ridge_predicted_R2_out_of_sample",
+    "ridge_predicted_R2_iid_calibration",
+    "ridge_predicted_R2_ood_calibration",
+    "ridge_predicted_MRR",
+    "ridge_predicted_constant_cos_advantage",
+    "effective_rank",
+    "residualized_R2_within_family",
+    "raw_gate_passed",
+    "fwl_gate_passed",
+    "gate_branch"
+  ],
+  "seed": 1337,
+  "env": {
+    "python": "3.13.5",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.4.6",
+    "transformers": "5.12.1",
+    "cuda_available": true,
+    "cuda_device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda_capability": [
+      8,
+      9
+    ],
+    "cuda_total_gb": 8.59,
+    "git_commit": "32d2d2c81b0b13c8633ca6876e26bae7d61a2096",
+    "git_dirty": true
+  },
+  "config": {
+    "MODEL_NAME": "C:\\Users\\adria\\OneDrive\\Desktop\\mini-llm-jepa\\notebooks\\model\\Qwen2.5-0.5B-Instruct",
+    "SEQ_LEN": 1024,
+    "VIEW_CONTRACT_VERSION": "qwen-chat-target-includes-prompt-v3",
+    "CONTENT_MASK_VERSION": "qwen-role-span-eot-newline-excluded-v2",
+    "EXTRACTOR_VERSION": "latent-panel-iid-ood-ridge-gates-v3",
+    "N_LATENT_TRAIN": 3000,
+    "N_LATENT_CALIBRATION": 750,
+    "N_LATENT_TEST": 750,
+    "IID_HOLDOUT_FRACTION": 0.15,
+    "OOD_TEMPLATE_FRACTION": 0.2,
+    "LAYERS": [
+      -1,
+      -4,
+      -8
+    ],
+    "POOLINGS": [
+      "terminal",
+      "last_content",
+      "content_mean",
+      "content_tail4"
+    ],
+    "RIDGE_ALPHAS": [
+      0.0001,
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0,
+      1000.0,
+      10000.0
+    ],
+    "N_PERMUTATIONS": 250,
+    "TRAIN_VAL_SPLIT": 0.8,
+    "GATE_ALIGNED_ABOVE_NULL_PCTILE": 95,
+    "GATE_MIN_RETRIEVAL_MRR": 0.02,
+    "GATE_MIN_CONSTANT_PRED_ADVANTAGE": 0.05,
+    "GATE_MIN_EFFECTIVE_RANK_RATIO": 1.5
+  },
+  "config_hash": "1d47916752cd"
+}

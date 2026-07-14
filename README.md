@@ -22,7 +22,7 @@ This is no longer just setup plumbing. Phases 01-03 have produced a fairly clear
 - The corrected Phase 03 audit shows the target manifold is not razor-thin after all. A family-diverse held-out audit has real between-row variance and a small pair-specific raw signal.
 - The JEPA predictor still collapses directionally: it learns a common direction better than it learns the row-specific mapping.
 
-That makes Phase 04 the right next experiment: identify where the usable signal lives, then decide whether raw JEPA, residual JEPA, or neither is justified.
+Phase 04 answered the identification question: on base Qwen, the pair-specific signal exists but is dominated by a common direction plus family-mean structure. Raw representation gates rejected every candidate, FWL-residualized gates passed everywhere, and the winning candidate (`layer=-1`, `pooling=content_mean`) shows OOD-family FWL R2 = 0.82. That points to Residual JEPA rather than raw JEPA as the next training pass to run.
 
 ## Notebook Map
 
@@ -70,27 +70,16 @@ Interpretation: the earlier "architecture gives zero pair signal" read was too p
 
 ### `04-identify-then-intervene.ipynb` - Identify, Gate, Then Intervene
 
-Current active notebook. It is designed to decide whether the next training notebook should be raw JEPA, residual JEPA, both as an ablation, or neither.
+Preflight lab that decides which JEPA variant the next training notebook should run. Extracts a latent panel from base Qwen across candidate `(layer, pooling)` combinations, tests each for geometry, retrieval, frozen linear predictability, and FWL-residualized predictability, then applies a two-lane selection gate (raw vs Frisch-Waugh-Lovell). Machine-readable branch label lands in `04-outputs/geometry/selection_gate_{hash}.json` as `gate_branch`: `none`, `raw_jepa`, `residual_jepa`, or `raw_and_residual`.
 
-What is already in place:
+Latest run (base Qwen, 3,000 train + 750 calibration + 750 test):
 
-- Manifest and config-hash pipeline, so stale cached artifacts are detectable.
-- Family-aware split manifest over the 14k corpus.
-- Family distribution audit: 279 template families, 60 scenarios, effective balanced-family count about 11.7.
-- Candidate grid over representation layer and pooling choice.
-- Qwen chat-template/content-mask diagnostics before expensive extraction.
-- IID and OOD latent calibration/test reporting instead of a single combined score.
-- Raw and FWL-residualized gates reported separately.
-- Machine-readable branch label: `none`, `raw_jepa`, `residual_jepa`, or `raw_and_residual`.
-- Utility sanity checks for effective rank, template ICC, retrieval metrics, and residualization.
+- 279 template families, effective balanced-family count 11.7 (matches the reviewer's Herfindahl estimate).
+- Raw gate: 0/12 candidates pass. Ridge OOS R2 beats the null trivially, but every candidate fails on either the constant-predictor cosine advantage or the effective-rank ratio against nb03's terminal-pooling baseline. The raw target geometry is dominated by a common direction and by family-mean structure.
+- FWL-residualized gate: 12/12 pass. After partialling out family means from both views, every candidate has recoverable pair-specific signal.
+- Selected candidate: `layer=-1, pooling=content_mean`. Ridge R2 all/iid/ood = 0.87 / 1.00 / 0.63. FWL R2 all/iid/ood = 0.92 / 0.98 / 0.82. Retrieval MRR on ridge predictions = 0.93. Target intraclass correlation = 0.964 (~96% of target variance is between-family, ~4% is pair-specific residual).
 
-What is still pending:
-
-- The expensive latent extraction pass.
-- The ridge/permutation sweep over candidate representations.
-- The final selection gate that determines the next notebook branch.
-
-Expected cost: the extraction pass is the GPU-heavy part, roughly 9,000 forward passes at `SEQ_LEN=1024` for the default 4,500-row latent budget. The later sweep is CPU-only and cheap because the ridge projection is reused across permutations.
+Interpretation: the pair-specific signal exists and is generalizable to unseen SQL templates (OOD FWL R2 = 0.82), but it is swamped in the raw geometry by the common + family components. That is the exact regime Residual JEPA is designed for. `gate_branch = residual_jepa`. The next training notebook should build the Residual JEPA arm around this `(layer, pooling)` and sweep the number of removed common components on calibration only.
 
 ## Run Order
 

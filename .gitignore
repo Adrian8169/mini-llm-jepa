@@ -10,3 +10,6 @@ model/
 # Python
 __pycache__/
 *.py[cod]
+
+# nb04 latent-cache (regenerable from base Qwen + fixed seed + config hash)
+04-outputs/latent-cache/
